@@ -523,8 +523,8 @@ public class CronetHttpURLConnection extends HttpURLConnection {
         }
         return -1;
     }
-
-    private class CronetUrlRequestCallback implements UrlRequest.Callback {
+    /** Unisoc: Bug 2184389 Workround for Mainline Beta1 build error until FRC released.*/
+    private class CronetUrlRequestCallback extends UrlRequest.Callback {
         public CronetUrlRequestCallback() {}
 
         @Override
