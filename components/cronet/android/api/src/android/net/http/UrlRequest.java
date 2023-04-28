@@ -240,8 +240,7 @@ public abstract class UrlRequest {
      * Note:  All methods will be invoked on the thread of the {@link java.util.concurrent.Executor}
      * used during construction of the {@code UrlRequest}.
      */
-    /** Unisoc: Bug 2184389 Workround for Mainline Beta1 build error until FRC released.*/
-    public static abstract class Callback {
+    public interface Callback {
         /**
          * Invoked whenever a redirect is encountered. This will only be invoked between the call to
          * {@link UrlRequest#start} and {@link Callback#onResponseStarted onResponseStarted()}. The
@@ -259,7 +258,7 @@ public abstract class UrlRequest {
          */
         // SuppressLint: Exception will be wrapped and passed to #onFailed, see above javadoc
         @SuppressLint("GenericException")
-        public abstract void onRedirectReceived(@NonNull UrlRequest request,
+        void onRedirectReceived(@NonNull UrlRequest request,
                 @NonNull UrlResponseInfo info, @NonNull String newLocationUrl) throws Exception;
 
         /**
@@ -279,7 +278,7 @@ public abstract class UrlRequest {
          */
         // SuppressLint: Exception will be wrapped and passed to #onFailed, see above javadoc
         @SuppressLint("GenericException")
-        public abstract void onResponseStarted(@NonNull UrlRequest request,
+        void onResponseStarted(@NonNull UrlRequest request,
                 @NonNull UrlResponseInfo info) throws Exception;
 
         /**
@@ -304,7 +303,7 @@ public abstract class UrlRequest {
          */
         // SuppressLint: Exception will be wrapped and passed to #onFailed, see above javadoc
         @SuppressLint("GenericException")
-        public abstract void onReadCompleted(@NonNull UrlRequest request,
+        void onReadCompleted(@NonNull UrlRequest request,
                 @NonNull UrlResponseInfo info, @NonNull ByteBuffer byteBuffer) throws Exception;
 
         /**
@@ -314,7 +313,7 @@ public abstract class UrlRequest {
          * @param request Request that succeeded.
          * @param info Response information.
          */
-        public abstract void onSucceeded(
+         void onSucceeded(
                 @NonNull UrlRequest request, @NonNull UrlResponseInfo info);
 
         /**
@@ -326,7 +325,7 @@ public abstract class UrlRequest {
          * @param info Response information. May be {@code null} if no response was received.
          * @param error information about error.
          */
-        public abstract void onFailed(@NonNull UrlRequest request,
+        void onFailed(@NonNull UrlRequest request,
                 @Nullable UrlResponseInfo info, @NonNull HttpException error);
 
         /**
@@ -336,7 +335,7 @@ public abstract class UrlRequest {
          * @param request Request that was canceled.
          * @param info Response information. May be {@code null} if no response was received.
          */
-        public void onCanceled(@NonNull UrlRequest request, @Nullable UrlResponseInfo info){}
+        void onCanceled(@NonNull UrlRequest request, @Nullable UrlResponseInfo info);
     }
 
     /** @hide */
